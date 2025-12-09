@@ -61,25 +61,16 @@ module Day1
   end
 
   def count_zeros_in_range(start_pos, end_pos, distance, direction)
-    # How many complete loops around the dial (0-99)?
     complete_loops = distance / 100
-    
-    # Count zeros from complete loops
     zero_count = complete_loops
-    
-    # Check if we cross 0 in the partial rotation
     remaining = distance % 100
     
     if direction == :left
-      # Moving left from start_pos by remaining clicks
-      # We cross 0 if start_pos < remaining (we go below 0 and wrap)
-      zero_count += 1 if remaining > start_pos
+      zero_count += 1 if start_pos.positive? && (start_pos - remaining) <= 0
     else # :right
-      # Moving right from start_pos by remaining clicks
-      # We cross 0 if start_pos + remaining >= 100 (we go above 99 and wrap)
-      zero_count += 1 if start_pos + remaining >= 100
+      zero_count += 1 if (start_pos + remaining) >= 100
     end
-    
+
     zero_count
   end
 
