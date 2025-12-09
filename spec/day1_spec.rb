@@ -20,13 +20,13 @@ RSpec.describe Day1 do
 
   describe '.part1' do
     it 'solves the sample input' do
-      expect(Day1.part1(sample_input)).to eq(3)
+      expect(described_class.part1(sample_input)).to eq(3)
     end
   end
 
   describe '.part2' do
     it 'solves the sample input' do
-      expect(Day1.part2(sample_input)).to eq(6)
+      expect(described_class.part2(sample_input)).to eq(6)
     end
   end
 end

@@ -28,13 +28,13 @@ module Day1
 
     rotations.each do |direction, distance|
       new_position = rotate(position, direction, distance)
-      
+
       if count_during_rotation
         zero_count += count_zeros_in_range(position, distance, direction)
-      else
-        zero_count += 1 if new_position == 0
+      elsif new_position.zero?
+        zero_count += 1
       end
-      
+
       position = new_position
     end
 
@@ -43,7 +43,7 @@ module Day1
 
   def rotate(position, direction, distance)
     move_down = direction == LEFT ? -1 : 1
-    (position + move_down * distance) % DIAL_SIZE
+    (position + (move_down * distance)) % DIAL_SIZE
   end
 
   def parse_rotations(input)
@@ -58,17 +58,17 @@ module Day1
     complete_loops = distance / DIAL_SIZE
     zero_count = complete_loops
     remaining = distance % DIAL_SIZE
-    
+
     if direction == LEFT
       zero_count += 1 if start_pos.positive? && (start_pos - remaining) <= 0
-    else # :right
-      zero_count += 1 if (start_pos + remaining) >= DIAL_SIZE
+    elsif (start_pos + remaining) >= DIAL_SIZE # :right
+      zero_count += 1
     end
 
     zero_count
   end
 
   def read_input
-    File.read("inputs/day1.txt").strip
+    File.read('inputs/day1.txt').strip
   end
 end
